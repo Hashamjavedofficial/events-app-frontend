@@ -6,7 +6,7 @@ export const navbarStyles = makeStyles((theme) => ({
     marginBottom: "3em",
   },
   logo: {
-    height: "6em",
+    height: "5em",
     [theme.breakpoints.down("md")]: {
       height: "5em",
     },
