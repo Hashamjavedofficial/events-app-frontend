@@ -1,27 +1,27 @@
-import {createMuiTheme} from "@material-ui/core";
+import { createMuiTheme } from "@material-ui/core";
 
 export const theme = createMuiTheme({
-    palette: {
-        primary: {
-            main: "#252683",
-        },
-        secondary: {
-            main: "#fcd124",
-        },
+  palette: {
+    primary: {
+      main: "#202020",
     },
-    // typography: {
-    //     fontFamily: ["Nunito", "sans-serif"],
-    // },
-    overrides: {
-        MuiButton: {
-            root: {
-                textTransform: "none",
-            },
-        },
+    secondary: {
+      main: "#03be9f",
     },
-    props: {
-        MuiButton: {
-            disableRipple: true,
-        },
+  },
+  // typography: {
+  //     fontFamily: ["Nunito", "sans-serif"],
+  // },
+  overrides: {
+    MuiButton: {
+      root: {
+        textTransform: "none",
+      },
     },
+  },
+  props: {
+    MuiButton: {
+      disableRipple: true,
+    },
+  },
 });

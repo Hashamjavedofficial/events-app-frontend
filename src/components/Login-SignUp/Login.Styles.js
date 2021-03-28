@@ -95,7 +95,7 @@ export const useLoginStyle = makeStyles((theme) => ({
     objectFit: "cover",
   },
   logo: {
-    backgroundColor: "#F6F9FC",
+    backgroundColor: "#03be9f",
     width: "100%",
     padding: "10px 0",
   },

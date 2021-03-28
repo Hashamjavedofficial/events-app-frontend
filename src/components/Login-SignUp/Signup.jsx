@@ -10,7 +10,7 @@ import Spinner from "../Shared/Spinner";
 import Logo from "../../logo.svg";
 import loginImage from "../../assets/sport.jpg";
 
-const Login = (props) => {
+const Signup = (props) => {
   const history = useHistory();
   // const auth = useContext(AuthContext);
   const classes = useLoginStyle();
@@ -51,6 +51,8 @@ const Login = (props) => {
               <Grid item xs={10} md={10}>
                 <Formik
                   initialValues={{
+                    name: "",
+                    code: "",
                     email: "",
                     password: "",
                   }}
@@ -62,9 +64,20 @@ const Login = (props) => {
                         <Grid item xs={12}>
                           <Field
                             as={TextField}
-                            label="Email Address"
-                            name="email"
+                            label="Name"
+                            name="name"
                             type="text"
+                            required
+                            variant="outlined"
+                            className="w-full"
+                          />
+                        </Grid>
+                        <Grid item xs={12}>
+                          <Field
+                            as={TextField}
+                            label="Email"
+                            name="email"
+                            type="email"
                             required
                             variant="outlined"
                             className="w-full"
@@ -81,6 +94,17 @@ const Login = (props) => {
                             className="w-full"
                           />
                         </Grid>
+                        <Grid item xs={12}>
+                          <Field
+                            as={TextField}
+                            label="Sign Up Code"
+                            type="text"
+                            name="code"
+                            required
+                            variant="outlined"
+                            className="w-full"
+                          />
+                        </Grid>
                         <Grid item>
                           <Grid container justify="space-between" spacing={2}>
                             <Grid item md={12} xs={12}>
@@ -90,14 +114,8 @@ const Login = (props) => {
                                 color="primary"
                                 className="w-full"
                               >
-                                Sign In
+                                Sign Up
                               </Button>
-                              <div>
-                                <div className={loginClasses.textWrapperSignup}>
-                                  New User?
-                                  <Link to="/signup"> Sign Up</Link>
-                                </div>
-                              </div>
                             </Grid>
                           </Grid>
                         </Grid>
@@ -114,4 +132,4 @@ const Login = (props) => {
   );
 };
 
-export default Login;
+export default Signup;
