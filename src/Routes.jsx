@@ -13,8 +13,8 @@ const Routes = (props) => {
       <Switch>
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
-        <Route path="/events" component={Events} />
         <Route path="/event/:id" component={SelectedEvent} />
+        <Route path="/" component={Events} />
         <Redirect to={"/login"} />
       </Switch>
     </Layout>

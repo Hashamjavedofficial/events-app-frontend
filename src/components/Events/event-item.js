@@ -1,4 +1,3 @@
-// import Image from 'next/image';
 import React from "react";
 import { Button } from "@material-ui/core";
 import { useHistory, Link } from "react-router-dom";
