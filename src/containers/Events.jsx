@@ -1,27 +1,43 @@
-import { Fragment } from "react";
+import React, { useEffect, useState, Fragment } from "react";
+import axios from "axios";
 // import { useRouter } from 'next/router';
 // import Head from 'next/head';
 
-import { getAllEvents } from "../../helpers/api-util";
-import EventList from "../../components/events/event-list";
-import EventsSearch from "../../components/events/events-search";
+import EventList from "../components/Events/event-list";
+import EventsSearch from "../components/Events/events-search";
+import Spinner from "../components/Shared/Spinner";
 
-function AllEventsPage(props) {
-  const { events } = props;
+const Events = (props) => {
+  const [events, setEvents] = useState([]);
+  useEffect(() => {
+    axios
+      .get("https://vue-http-b6550-default-rtdb.firebaseio.com/events.json")
+      .then((res) => {
+        let finalData = [];
+        for (let key in res.data) {
+          finalData.push(res.data[key]);
+        }
+        setEvents(finalData);
+      });
+  }, []);
 
   function findEventsHandler(year, month) {
     const fullPath = `/events/${year}/${month}`;
 
-    router.push(fullPath);
+    // router.push(fullPath);
   }
 
   return (
     <Fragment>
       <EventsSearch onSearch={findEventsHandler} />
-      <EventList items={events} />
+      {events.length > 0 ? (
+        <EventList items={events} />
+      ) : (
+        <Spinner open={true} />
+      )}
     </Fragment>
   );
-}
+};
 
 // export async function getStaticProps() {
 //     const events = await getAllEvents();
@@ -34,4 +50,4 @@ function AllEventsPage(props) {
 //     };
 // }
 
-export default AllEventsPage;
+export default Events;
