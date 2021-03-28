@@ -15,8 +15,12 @@ const Events = (props) => {
       .then((res) => {
         let finalData = [];
         for (let key in res.data) {
-          finalData.push(res.data[key]);
+          finalData.push({
+            ...res.data[key],
+            image: "../../assets/" + res.data[key].image,
+          });
         }
+        debugger;
         setEvents(finalData);
       });
   }, []);

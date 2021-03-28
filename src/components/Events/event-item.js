@@ -1,13 +1,18 @@
 // import Image from 'next/image';
+import React from "react";
 import { Button } from "@material-ui/core";
+import { useHistory, Link } from "react-router-dom";
 
 import DateIcon from "../icons/date-icon";
 import AddressIcon from "../icons/address-icon";
 import ArrowRightIcon from "../icons/arrow-right-icon";
 import classes from "./event-item.module.css";
 
+import imageLogo from "../../assets/images/coding-event.jpg";
+
 function EventItem(props) {
   const { title, image, date, location, id } = props;
+  const history = useHistory();
 
   const humanReadableDate = new Date(date).toLocaleDateString("en-US", {
     day: "numeric",
@@ -19,7 +24,7 @@ function EventItem(props) {
 
   return (
     <li className={classes.item}>
-      <img src={"/" + image} alt={title} width={250} height={160} />
+      <img src={imageLogo} alt={title} width={250} height={160} />
       <div className={classes.content}>
         <div className={classes.summary}>
           <h2>{title}</h2>
@@ -33,12 +38,14 @@ function EventItem(props) {
           </div>
         </div>
         <div className={classes.actions}>
-          <Button color="secondary" variant="contained">
-            <span>Explore Event</span>
-            <span className={classes.icon}>
-              <ArrowRightIcon />
-            </span>
-          </Button>
+          <Link to={"/event/" + id}>
+            <Button color="secondary" variant="contained">
+              <span>Explore Event</span>
+              <span className={classes.icon}>
+                <ArrowRightIcon />
+              </span>
+            </Button>
+          </Link>
         </div>
       </div>
     </li>
