@@ -1,10 +1,12 @@
 import React from "react";
-import { Button } from "@material-ui/core";
+import { Button, IconButton } from "@material-ui/core";
 import { useHistory, Link } from "react-router-dom";
+import EditIcon from "@material-ui/icons/Edit";
+import DeleteIcon from "@material-ui/icons/Delete";
+import ArrowForwardIcon from "@material-ui/icons/ArrowForward";
 
 import DateIcon from "../icons/date-icon";
 import AddressIcon from "../icons/address-icon";
-import ArrowRightIcon from "../icons/arrow-right-icon";
 import classes from "./event-item.module.css";
 
 import imageLogo from "../../assets/images/coding-event.jpg";
@@ -19,7 +21,10 @@ function EventItem(props) {
     year: "numeric",
   });
   const formattedAddress = location.replace(", ", "\n");
-  const exploreLink = `/events/${id}`;
+
+  const exploreEventHandler = () => {
+    history.push("/event/" + id);
+  };
 
   return (
     <li className={classes.item}>
@@ -37,14 +42,21 @@ function EventItem(props) {
           </div>
         </div>
         <div className={classes.actions}>
-          <Link to={"/event/" + id}>
-            <Button color="secondary" variant="contained">
-              <span>Explore Event</span>
-              <span className={classes.icon}>
-                <ArrowRightIcon />
-              </span>
-            </Button>
-          </Link>
+          <IconButton color={"primary"}>
+            <DeleteIcon></DeleteIcon>
+          </IconButton>
+          <IconButton color={"primary"}>
+            <EditIcon></EditIcon>
+          </IconButton>
+
+          <Button
+            className="mt-1"
+            color="secondary"
+            variant="contained"
+            onClick={exploreEventHandler}
+          >
+            Explore Event <ArrowForwardIcon></ArrowForwardIcon>
+          </Button>
         </div>
       </div>
     </li>
