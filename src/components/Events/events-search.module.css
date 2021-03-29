@@ -5,7 +5,7 @@
   background-color: white;
   border-radius: 6px;
   width: 90%;
-  max-width: 40rem;
+  max-width: 50rem;
   display: flex;
   justify-content: space-between;
   flex-direction: column;
@@ -39,7 +39,7 @@
   padding: 0.25rem;
 }
 
-.form button {
+.form .button1 {
   width: 100%;
   font: inherit;
   padding: 0.25rem 0.5rem;

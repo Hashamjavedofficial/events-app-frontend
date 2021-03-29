@@ -1,54 +1,82 @@
 import React, { useRef } from "react";
 import { Formik, Field } from "formik";
-import { TextField } from "@material-ui/core";
+import {
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
+  Button,
+} from "@material-ui/core";
+import { MuiPickersUtilsProvider, DatePicker } from "@material-ui/pickers";
+import DateFnsUtils from "@date-io/moment";
 
-import Button from "../ui/button";
 import classes from "./events-search.module.css";
 
 function EventsSearch(props) {
-  const yearInputRef = useRef();
-  const monthInputRef = useRef();
-
-  function submitHandler(event) {
-    event.preventDefault();
-
-    const selectedYear = yearInputRef.current.value;
-    const selectedMonth = monthInputRef.current.value;
-
-    props.onSearch(selectedYear, selectedMonth);
-  }
-
+  const submitHandler = (values, options) => {
+    console.log(values);
+  };
   return (
-    <Formik>
-      {({ values, handleSubmit }) => (
-        <form className={classes.form} onSubmit={submitHandler}>
-          <div className={classes.controls}>
-            <div className={classes.control}>
-              <label htmlFor="year">Year</label>
-              <select id="year" ref={yearInputRef}>
-                <option value="2021">2021</option>
-                <option value="2022">2022</option>
-              </select>
+    <Formik
+      initialValues={{
+        sport: "",
+        date: "",
+      }}
+      onSubmit={(values, options) => submitHandler(values, options)}
+    >
+      {({ values, handleSubmit, setFieldValue }) => (
+        <form className={classes.form} onSubmit={handleSubmit}>
+          <div className="grid grid-cols-2 w-full gap-2">
+            <div>
+              <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                <DatePicker
+                  id="event-date"
+                  label="Select Date"
+                  inputVariant="outlined"
+                  format="MM/d/yyyy"
+                  onChange={(value) => setFieldValue("date", value)}
+                  KeyboardButtonProps={{
+                    "aria-label": "change date",
+                  }}
+                  emptyLabel="Select Date"
+                  animateYearScrolling={true}
+                  allowKeyboardControl={false}
+                  autoOk={true}
+                  className="w-full"
+                />
+              </MuiPickersUtilsProvider>
             </div>
-            <div className={classes.control}>
-              <label htmlFor="month">Month</label>
-              <select id="month" ref={monthInputRef}>
-                <option value="1">January</option>
-                <option value="2">February</option>
-                <option value="3">March</option>
-                <option value="4">April</option>
-                <option value="5">May</option>
-                <option value="6">June</option>
-                <option value="7">July</option>
-                <option value="8">August</option>
-                <option value="9">Septemer</option>
-                <option value="10">October</option>
-                <option value="11">November</option>
-                <option value="12">December</option>
-              </select>
+            <div>
+              <FormControl variant="outlined" className="w-full">
+                <InputLabel id="demo-simple-select-outlined-label">
+                  Sports
+                </InputLabel>
+                <Select
+                  labelId="demo-simple-select-outlined-label"
+                  id="demo-simple-select-outlined"
+                  label="Age"
+                  onChange={(e) => {
+                    setFieldValue("sport", e.target.value);
+                  }}
+                >
+                  <MenuItem value="">
+                    <em>None</em>
+                  </MenuItem>
+                  <MenuItem value="soccer">Soccer</MenuItem>
+                  <MenuItem value="tennis">Tennis</MenuItem>
+                  <MenuItem value="cricket">Cricket</MenuItem>
+                  <MenuItem value="basketball">BasketBall</MenuItem>
+                  <MenuItem value="badminton">Badminton</MenuItem>
+                  <MenuItem value="golf">Golf</MenuItem>
+                  <MenuItem value="baseball">Baseball</MenuItem>
+                  <MenuItem value="baseball">Baseball</MenuItem>
+                </Select>
+              </FormControl>
             </div>
           </div>
-          <Button>Find Events</Button>
+          <Button color={"secondary"} variant="contained" type="submit">
+            Find Events
+          </Button>
         </form>
       )}
     </Formik>
