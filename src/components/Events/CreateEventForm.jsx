@@ -22,7 +22,7 @@ const CreateEventForm = (props) => {
   const dispatch = useDispatch();
   const { events } = useSelector((state) => state);
   const { closeModal } = props;
-  const [eventImage, setEventImage] = useState();
+  const [eventImage, setEventImage] = useState("");
 
   const submitHandler = (values, options) => {
     dispatch(
@@ -30,7 +30,7 @@ const CreateEventForm = (props) => {
         convertToFormData({
           ...values,
           eventDate: moment(values.date).format("MM/d/yyyy"),
-          eventImage,
+          eventImage: eventImage,
         }),
         closeModal
       )

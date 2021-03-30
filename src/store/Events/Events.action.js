@@ -1,5 +1,6 @@
 import axios from "../../utils/axios";
 import * as actionTypes from "../ActionTypes";
+import { success, error } from "../../utils/toast";
 
 const fetchingDataDispatcher = (loading) => ({
   type: actionTypes.FETCHING_DATA,
@@ -15,14 +16,9 @@ const setErrorDispatcher = (error) => ({
   },
 });
 
-const createEventDispatcher = (payload) => ({
-  type: actionTypes.CREATE_EVENT,
-  payload,
-});
-
 const setSuccessDispatcher = (success) => ({
   type: actionTypes.SET_SUCCESS,
-  codecPayloadType: {
+  payload: {
     success,
   },
 });
@@ -44,8 +40,29 @@ export const createEvent = (data, closeModal) => async (dispatch) => {
   try {
     const response = await axios.post("events/create", data);
     closeModal();
+    success(response.data.message);
     dispatch(setSuccessDispatcher(response.data.message));
     dispatch(resetSuccess());
+    dispatch(getAllEvents());
+  } catch (e) {
+    error(e.message);
+    dispatch(setErrorDispatcher(e.message));
+    dispatch(resetError());
+  }
+};
+
+const getAllEventsDispatcher = (allEvents) => ({
+  type: actionTypes.FETCH_ALL_EVENTS,
+  payload: {
+    allEvents,
+  },
+});
+
+export const getAllEvents = () => async (dispatch) => {
+  dispatch(fetchingDataDispatcher(true));
+  try {
+    const response = await axios.get("events/");
+    dispatch(getAllEventsDispatcher(response.data.data));
   } catch (e) {
     dispatch(setErrorDispatcher(e.message));
     dispatch(resetError());

@@ -1,26 +1,17 @@
 import React, { useEffect, useState, Fragment } from "react";
-import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
 
 import EventList from "../components/Events/event-list";
 import EventsSearch from "../components/Events/events-search";
 import Spinner from "../components/Shared/Spinner";
+import * as Actions from "../store/AllActions";
+import { getAllEvents } from "../store/AllActions";
 
 const Events = (props) => {
-  const [events, setEvents] = useState([]);
+  const dispatch = useDispatch();
+  const { events } = useSelector((state) => state);
   useEffect(() => {
-    axios
-      .get("https://vue-http-b6550-default-rtdb.firebaseio.com/events.json")
-      .then((res) => {
-        let finalData = [];
-        for (let key in res.data) {
-          finalData.push({
-            ...res.data[key],
-            image: "../../assets/" + res.data[key].image,
-          });
-        }
-        debugger;
-        setEvents(finalData);
-      });
+    dispatch(Actions.getAllEvents());
   }, []);
 
   function findEventsHandler(year, month) {
@@ -31,11 +22,16 @@ const Events = (props) => {
 
   return (
     <Fragment>
+      <Spinner open={events.loading} />
       <EventsSearch onSearch={findEventsHandler} />
-      {events.length > 0 ? (
-        <EventList items={events} />
+      {events.allEvents.length > 0 ? (
+        <EventList items={events.allEvents} />
       ) : (
-        <Spinner open={true} />
+        <div className="flex justify-center align-items-center">
+          <div>
+            <h2>No Event Created Yet</h2>
+          </div>
+        </div>
       )}
     </Fragment>
   );

@@ -41,7 +41,6 @@ export const authLogin = (authData, signUp) => {
       .then((response) => {
         localStorage.setItem("user", response.data.data);
         localStorage.setItem("token", response.data.data.token);
-        debugger;
         dispatch(authSuccess(response.data.data, response.data.data.token));
       })
       .catch((err) => {

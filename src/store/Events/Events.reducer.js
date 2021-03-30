@@ -1,6 +1,6 @@
 import * as actionTypes from "../ActionTypes";
 const initialState = {
-  events: [],
+  allEvents: [],
   loading: false,
   selectedEvent: {},
   error: "",
@@ -15,6 +15,8 @@ const eventsReducers = (state = initialState, { type, payload }) => {
       return { ...state, loading: false, error: payload.error };
     case actionTypes.SET_SUCCESS:
       return { ...state, success: payload.success, loading: false };
+    case actionTypes.FETCH_ALL_EVENTS:
+      return { ...state, allEvents: payload.allEvents, loading: false };
     default:
       return state;
   }
