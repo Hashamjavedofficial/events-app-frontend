@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Formik, Field } from "formik";
+import { useDispatch, useSelector } from "react-redux";
 import {
   Grid,
   TextField,
@@ -11,13 +12,29 @@ import {
 } from "@material-ui/core";
 import { DatePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
 import DateFnsUtils from "@date-io/moment";
+import moment from "moment";
 
 import ImageUpload from "../Shared/image-upload";
+import { convertToFormData } from "../../utils/helpers";
+import * as Actions from "../../store/AllActions";
 
 const CreateEventForm = (props) => {
+  const dispatch = useDispatch();
+  const { events } = useSelector((state) => state);
+  const { closeModal } = props;
   const [eventImage, setEventImage] = useState();
+
   const submitHandler = (values, options) => {
-    console.log(values);
+    dispatch(
+      Actions.createEvent(
+        convertToFormData({
+          ...values,
+          eventDate: moment(values.date).format("MM/d/yyyy"),
+          eventImage,
+        }),
+        closeModal
+      )
+    );
   };
   const inputHandler = (id, photo, fileIsValid) => {
     setEventImage(photo);
@@ -31,9 +48,10 @@ const CreateEventForm = (props) => {
         description: "",
         address: "",
       }}
+      onSubmit={(values, options) => submitHandler(values, options)}
     >
       {({ values, handleSubmit, setFieldValue }) => (
-        <form action="">
+        <form action="" onSubmit={handleSubmit}>
           <div className="grid grid-cols-1 gap-4">
             <div className="flex justify-center">
               <ImageUpload
@@ -77,7 +95,7 @@ const CreateEventForm = (props) => {
                   label="Select Date"
                   inputVariant="outlined"
                   format="MM/d/yyyy"
-                  onChange={(value) => setFieldValue("date", value)}
+                  onChange={(value) => setFieldValue("eventDate", value)}
                   KeyboardButtonProps={{
                     "aria-label": "change date",
                   }}
@@ -130,7 +148,7 @@ const CreateEventForm = (props) => {
               >
                 Cancel
               </Button>
-              <Button color={"secondary"} variant={"contained"}>
+              <Button color={"secondary"} variant={"contained"} type={"submit"}>
                 Submit
               </Button>
             </div>

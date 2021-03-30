@@ -3,3 +3,10 @@ export const AUTH_SUCCESS = "AUTH_SUCCESS";
 export const AUTH_FAIL = "AUTH_FAIL";
 export const AUTH_LOGOUT = "AUTH_LOGOUT";
 export const AUTH_REDIRECT_PATH = "AUTH_REDIRECT_PATH";
+
+export const FETCHING_DATA = "FETCHING_DATA";
+export const CREATE_EVENT = "CREATE_EVENT";
+export const DELETE_EVENT = "DELETE_EVENT";
+export const FETCH_ALL_EVENTS = "FETCH_ALL_EVENTS";
+export const SET_EVENT_ERROR = "SET_EVENT_ERROR";
+export const SET_SUCCESS = "SET_SUCCESS";

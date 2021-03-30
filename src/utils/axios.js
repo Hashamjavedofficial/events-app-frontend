@@ -4,11 +4,7 @@ const baseUrl = process.env.REACT_APP_URL;
 
 let headers = {};
 
-let token;
-const user = localStorage.getItem("users");
-if (user) {
-  token = user.token;
-}
+const token = localStorage.getItem("token");
 
 if (token) {
   headers.Authorization = `Bearer ${token}`;

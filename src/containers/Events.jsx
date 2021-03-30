@@ -1,7 +1,5 @@
 import React, { useEffect, useState, Fragment } from "react";
 import axios from "axios";
-// import { useRouter } from 'next/router';
-// import Head from 'next/head';
 
 import EventList from "../components/Events/event-list";
 import EventsSearch from "../components/Events/events-search";
@@ -42,16 +40,5 @@ const Events = (props) => {
     </Fragment>
   );
 };
-
-// export async function getStaticProps() {
-//     const events = await getAllEvents();
-//
-//     return {
-//         props: {
-//             events: events,
-//         },
-//         revalidate: 60
-//     };
-// }
 
 export default Events;
