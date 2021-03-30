@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme) => ({
   dialogWrapper: {
     padding: theme.spacing(1),
     position: "absolute",
-
+    zIndex: 5000,
     "& .MuiDialogTitle-root": {
       padding: "5px",
       paddingLeft: "1em",
@@ -35,7 +35,8 @@ export default function Popup(props) {
   return (
     <Dialog
       open={open}
-      maxWidth="md"
+      maxWidth="sm"
+      fullWidth="sm"
       classes={{ paper: classes.dialogWrapper }}
     >
       <DialogTitle className={classes.dialogTitle}>

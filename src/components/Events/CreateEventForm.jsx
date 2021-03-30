@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Formik, Field } from "formik";
 import {
   Grid,
@@ -12,9 +12,15 @@ import {
 import { DatePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
 import DateFnsUtils from "@date-io/moment";
 
+import ImageUpload from "../Shared/image-upload";
+
 const CreateEventForm = (props) => {
+  const [eventImage, setEventImage] = useState();
   const submitHandler = (values, options) => {
     console.log(values);
+  };
+  const inputHandler = (id, photo, fileIsValid) => {
+    setEventImage(photo);
   };
   return (
     <Formik
@@ -29,6 +35,14 @@ const CreateEventForm = (props) => {
       {({ values, handleSubmit, setFieldValue }) => (
         <form action="">
           <div className="grid grid-cols-1 gap-4">
+            <div className="flex justify-center">
+              <ImageUpload
+                id={"image"}
+                onInput={inputHandler}
+                errorText={"Please provide an image."}
+                imageUrl={""}
+              />
+            </div>
             <div>
               <FormControl variant="outlined" className="w-full">
                 <InputLabel id="demo-simple-select-outlined-label">
@@ -108,7 +122,14 @@ const CreateEventForm = (props) => {
                 className="w-full"
               />
             </div>
-            <div className="flex justify-end">
+            <div className="flex justify-end gap-4">
+              <Button
+                color="primary"
+                variant="contained"
+                onClick={props.closeModal}
+              >
+                Cancel
+              </Button>
               <Button color={"secondary"} variant={"contained"}>
                 Submit
               </Button>

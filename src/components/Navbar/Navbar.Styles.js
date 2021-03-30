@@ -88,6 +88,6 @@ export const navbarStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.secondary.main,
   },
   appbar: {
-    zIndex: theme.zIndex.modal + 1,
+    zIndex: 100,
   },
 }));

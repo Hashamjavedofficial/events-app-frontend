@@ -25,7 +25,7 @@ function EventsSearch(props) {
   return (
     <Fragment>
       <Model open={open} setOpen={setOpen} title="Create an event">
-        <CreateEventForm />
+        <CreateEventForm closeModal={toggleModel} />
       </Model>
       <Formik
         initialValues={{
