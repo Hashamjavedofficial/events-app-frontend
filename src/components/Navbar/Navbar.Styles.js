@@ -31,6 +31,7 @@ export const navbarStyles = makeStyles((theme) => ({
     ...theme.typography.estimate,
     textTransform: "none",
     height: "40px",
+    marginRight: "20px",
     width: "10em",
   },
   buttonContainer: {
@@ -88,6 +89,7 @@ export const navbarStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.secondary.main,
   },
   appbar: {
+    height: "80px",
     zIndex: 100,
   },
 }));

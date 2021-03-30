@@ -14,6 +14,9 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import { useTheme } from "@material-ui/core/styles";
 import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+
+import * as Actions from "../../store/AllActions";
 
 import { navbarStyles } from "./Navbar.Styles";
 
@@ -34,6 +37,10 @@ function ElevationScroll(props) {
 
 const Navbar = (props) => {
   const classes = navbarStyles();
+
+  const dispatch = useDispatch();
+  const { token } = useSelector((state) => state.auth);
+
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.down("md"));
   const [openDrawer, setOpenDrawer] = useState(false);
@@ -67,6 +74,9 @@ const Navbar = (props) => {
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
+  const logoutHandler = () => {
+    dispatch(Actions.authLogout());
+  };
 
   const tabs = (
     <React.Fragment>
@@ -87,8 +97,7 @@ const Navbar = (props) => {
         variant={"contained"}
         color={"secondary"}
         className={classes.button}
-        component={Link}
-        to={"/estimate"}
+        onClick={logoutHandler}
       >
         Logout
       </Button>
@@ -140,7 +149,10 @@ const Navbar = (props) => {
             button
             // component={Link}
             // to={"/estimate"}
-            onClick={() => setOpenDrawer(false)}
+            onClick={() => {
+              setOpenDrawer(false);
+              logoutHandler();
+            }}
           >
             <ListItemText className={classes.drawerItem}>Logout</ListItemText>
           </ListItem>
@@ -169,9 +181,14 @@ const Navbar = (props) => {
               className={classes.buttonContainer}
               onClick={() => setValue(0)}
             >
-              <img src={logo} alt="Company logo" className={classes.logo} />
+              <img
+                src={logo}
+                height={30}
+                alt="Company logo"
+                className={classes.logo}
+              />
             </Button>
-            {matches ? drawer : tabs}
+            {token === null ? "" : matches ? drawer : tabs}
           </Toolbar>
         </AppBar>
       </ElevationScroll>

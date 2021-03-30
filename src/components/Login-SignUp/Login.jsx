@@ -1,6 +1,7 @@
 import React, { useState, Fragment } from "react";
 import { Grid, TextField, Button } from "@material-ui/core";
 import { Link, useHistory } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import Card from "@material-ui/core/Card";
 import Divider from "@material-ui/core/Divider";
 import { Formik, Field } from "formik";
@@ -9,21 +10,23 @@ import { useLoginStyle } from "./Login.Styles";
 import Spinner from "../Shared/Spinner";
 import Logo from "../../logo.svg";
 import loginImage from "../../assets/sport.jpg";
+import * as Actions from "../../store/AllActions";
 
 const Login = (props) => {
   const history = useHistory();
+  const { auth } = useSelector((state) => state);
+  const dispatch = useDispatch();
   // const auth = useContext(AuthContext);
   const classes = useLoginStyle();
   const loginClasses = useLoginStyle();
   const [open, setOpen] = useState(false);
 
   const submitHandler = (values, options) => {
-    setOpen(true);
-    console.log(values);
+    dispatch(Actions.authLogin(values, false));
   };
   return (
     <Fragment>
-      <Spinner open={open} />
+      <Spinner open={auth.loading} />
       <div className={classes.main}>
         <Grid container item className={classes.imageContainer}>
           <img

@@ -1,8 +1,9 @@
 import * as actionTypes from "../ActionTypes";
-import { updateObject } from "../../helpers/utility";
+import { updateObject } from "../../utils/helpers";
+
 const initialState = {
-  userId: null,
-  idToken: null,
+  user: {},
+  token: null,
   error: null,
   loading: false,
   path: "/",
@@ -14,13 +15,13 @@ const reducer = (state = initialState, action) => {
       return updateObject(state, { loading: true });
     case actionTypes.AUTH_SUCCESS:
       return updateObject(state, {
-        idToken: action.idToken,
-        userId: action.userId,
+        token: action.token,
+        user: { ...action.user },
         loading: false,
         error: null,
       });
     case actionTypes.AUTH_LOGOUT:
-      return updateObject(state, { userId: null, idToken: null });
+      return updateObject(state, { user: null, token: null });
     case actionTypes.AUTH_FAIL:
       return updateObject(state, { error: action.error, loading: false });
     case actionTypes.AUTH_REDIRECT_PATH:

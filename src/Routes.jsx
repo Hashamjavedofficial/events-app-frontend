@@ -1,5 +1,6 @@
-import React from "react";
+import React, { Fragment } from "react";
 import { Route, Switch, Redirect } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 import Layout from "./containers/layout";
 import Login from "./components/Login-SignUp/Login";
@@ -8,15 +9,28 @@ import Events from "./containers/Events";
 import SelectedEvent from "./containers/SelectedEvent";
 
 const Routes = (props) => {
-  return (
-    <Layout>
-      <Switch>
-        <Route path="/login" component={Login} />
-        <Route path="/signup" component={Signup} />
+  const { auth } = useSelector((state) => state);
+  let routes;
+  if (auth.token) {
+    routes = (
+      <Fragment>
         <Route path="/event/:id" component={SelectedEvent} />
         <Route path="/" component={Events} />
+        <Redirect to={"/"} />
+      </Fragment>
+    );
+  } else {
+    routes = (
+      <Fragment>
+        <Route path="/login" component={Login} />
+        <Route path="/signup" component={Signup} />
         <Redirect to={"/login"} />
-      </Switch>
+      </Fragment>
+    );
+  }
+  return (
+    <Layout>
+      <Switch>{routes}</Switch>
     </Layout>
   );
 };
