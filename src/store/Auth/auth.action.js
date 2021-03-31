@@ -1,5 +1,6 @@
 import * as actionTypes from "../ActionTypes";
 import axios from "../../utils/axios";
+import { error } from "../../utils/toast";
 
 const authStart = () => {
   return {
@@ -27,7 +28,7 @@ export const authLogout = () => {
   };
 };
 
-export const authLogin = (authData, signUp) => {
+export const authLogin = (authData, signUp = false) => {
   return (dispatch) => {
     dispatch(authStart());
     let address;
@@ -44,6 +45,7 @@ export const authLogin = (authData, signUp) => {
         dispatch(authSuccess(response.data.data, response.data.data.token));
       })
       .catch((err) => {
+        error(err.message);
         dispatch(authFail(err.message));
       });
   };

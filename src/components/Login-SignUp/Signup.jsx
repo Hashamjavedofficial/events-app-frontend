@@ -4,7 +4,9 @@ import { Link, useHistory } from "react-router-dom";
 import Card from "@material-ui/core/Card";
 import Divider from "@material-ui/core/Divider";
 import { Formik, Field } from "formik";
+import { useSelector, useDispatch } from "react-redux";
 
+import * as Actions from "../../store/AllActions";
 import { useLoginStyle } from "./Login.Styles";
 import Spinner from "../Shared/Spinner";
 import Logo from "../../logo.svg";
@@ -12,14 +14,14 @@ import loginImage from "../../assets/sport.jpg";
 
 const Signup = (props) => {
   const history = useHistory();
+  const dispatch = useDispatch();
   // const auth = useContext(AuthContext);
   const classes = useLoginStyle();
   const loginClasses = useLoginStyle();
   const [open, setOpen] = useState(false);
 
   const submitHandler = (values, options) => {
-    setOpen(true);
-    console.log(values);
+    dispatch(Actions.authLogin(values, true));
   };
   return (
     <Fragment>
