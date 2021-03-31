@@ -29,7 +29,7 @@ const Events = (props) => {
       ) : (
         <div className="flex justify-center align-items-center">
           <div>
-            <h2>No Event Created Yet</h2>
+            <h2>No Record Found</h2>
           </div>
         </div>
       )}

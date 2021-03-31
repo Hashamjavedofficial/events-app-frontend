@@ -49,7 +49,7 @@ const CreateEventForm = (props) => {
           ? selectedEvent
           : {
               sport: "",
-              eventDate: "",
+              eventDate: new Date(),
               title: "",
               description: "",
               address: "",
@@ -102,11 +102,11 @@ const CreateEventForm = (props) => {
                   id="event-date"
                   label="Select Date"
                   inputVariant="outlined"
-                  format="MM/d/yyyy"
-                  onChange={(value) => setFieldValue("eventDate", value)}
-                  KeyboardButtonProps={{
-                    "aria-label": "change date",
+                  format="MM/DD/yyyy"
+                  onChange={(value) => {
+                    setFieldValue("eventDate", value);
                   }}
+                  value={values.eventDate}
                   emptyLabel="Select Date"
                   animateYearScrolling={true}
                   allowKeyboardControl={false}

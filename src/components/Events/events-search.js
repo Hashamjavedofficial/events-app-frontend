@@ -9,7 +9,9 @@ import {
 } from "@material-ui/core";
 import { MuiPickersUtilsProvider, DatePicker } from "@material-ui/pickers";
 import DateFnsUtils from "@date-io/moment";
+import { useDispatch, useSelector } from "react-redux";
 
+import * as Actions from "../../store/AllActions";
 import classes from "./events-search.module.css";
 import Model from "../Shared/Model";
 import CreateEventForm from "./CreateEventForm";
@@ -19,8 +21,9 @@ function EventsSearch(props) {
   const toggleModel = () => {
     setOpen(!open);
   };
+  const dispatch = useDispatch();
   const submitHandler = (values, options) => {
-    console.log(values);
+    dispatch(Actions.searchEvents(values));
   };
   return (
     <Fragment>
@@ -30,7 +33,7 @@ function EventsSearch(props) {
       <Formik
         initialValues={{
           sport: "",
-          date: "",
+          date: new Date(),
         }}
         onSubmit={(values, options) => submitHandler(values, options)}
       >
@@ -43,11 +46,12 @@ function EventsSearch(props) {
                     id="event-date"
                     label="Select Date"
                     inputVariant="outlined"
-                    format="MM/d/yyyy"
+                    format="MM/DD/yyyy"
                     onChange={(value) => setFieldValue("date", value)}
                     KeyboardButtonProps={{
                       "aria-label": "change date",
                     }}
+                    value={values.date}
                     emptyLabel="Select Date"
                     animateYearScrolling={true}
                     allowKeyboardControl={false}

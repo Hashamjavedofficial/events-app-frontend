@@ -6,7 +6,7 @@ import classes from "./event-logistics.module.css";
 import imageLogo from "../../assets/images/extrovert-event.jpg";
 
 function EventLogistics(props) {
-  const { date, address, image, imageAlt } = props;
+  const { date, address, image, imageAlt, sport } = props;
 
   return (
     <section className={classes.logistics}>
@@ -14,6 +14,9 @@ function EventLogistics(props) {
         <img src={image} alt={imageAlt} width={400} height={400} />
       </div>
       <ul className={classes.list}>
+        <LogisticsItem icon={DateIcon} sport={true}>
+          <time>{sport}</time>
+        </LogisticsItem>
         <LogisticsItem icon={DateIcon}>
           <time>{date}</time>
         </LogisticsItem>

@@ -23,6 +23,7 @@ const SelectedEvent = (props) => {
             address={selectedEvent.address}
             image={selectedEvent.eventImage ? selectedEvent.eventImage : avatar}
             imageAlt={selectedEvent.title}
+            sport={selectedEvent.sport}
           />
           <EventContent>
             <p>{selectedEvent.description}</p>

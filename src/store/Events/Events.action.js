@@ -96,3 +96,44 @@ export const setSelectedEvent = (selectedEvent) => ({
     selectedEvent,
   },
 });
+
+export const deleteEvent = (id) => async (dispatch) => {
+  dispatch(fetchingDataDispatcher(true));
+  try {
+    let response = await axios.delete(`events/${id}`);
+    success(response.data.message);
+    dispatch(getAllEvents());
+    dispatch(setSuccessDispatcher(response.data.message));
+    dispatch(resetSuccess());
+  } catch (e) {
+    error(e.message);
+    dispatch(setErrorDispatcher(e.message));
+    dispatch(resetError());
+  }
+};
+
+export const searchEvents = (data) => async (dispatch) => {
+  dispatch(fetchingDataDispatcher(true));
+  try {
+    const response = await axios.post("events/search", data);
+    let events = [];
+    response.data.data.forEach((event) => {
+      if (event.eventImage) {
+        events.push({
+          ...event,
+          eventImage: `data:image/png;base64,${bufferToImage(
+            event.eventImage.data
+          )}`,
+        });
+      } else {
+        events.push({
+          ...event,
+        });
+      }
+    });
+    dispatch(getAllEventsDispatcher(events));
+  } catch (e) {
+    dispatch(setErrorDispatcher(e.message));
+    dispatch(resetError());
+  }
+};

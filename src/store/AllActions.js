@@ -4,4 +4,6 @@ export {
   createEvent,
   getAllEvents,
   setSelectedEvent,
+  deleteEvent,
+  searchEvents,
 } from "./Events/Events.action";

@@ -41,7 +41,9 @@ function EventItem(props) {
     dispatch(Actions.setSelectedEvent(event));
     toggleModel();
   };
-  const handleDelete = () => {};
+  const handleDelete = () => {
+    dispatch(Actions.deleteEvent(id));
+  };
 
   return (
     <li className={classes.item}>
