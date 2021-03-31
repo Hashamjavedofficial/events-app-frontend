@@ -91,10 +91,7 @@ const ImageUpload = (props) => {
           {previewUrl ? (
             <img src={previewUrl ? previewUrl : AvatarImage} alt="Preview" />
           ) : image ? (
-            <img
-              src={process.env.REACT_APP_BACKEND_URL + imageUrl}
-              alt="Preview"
-            />
+            <img src={imageUrl} alt="Preview" />
           ) : (
             <img src={AvatarImage} alt="Default" />
           )}

@@ -37,10 +37,15 @@ const resetError = () => (dispatch) => {
   }, 5000);
 };
 
-export const createEvent = (data, closeModal) => async (dispatch) => {
+export const createEvent = (data, closeModal, edit) => async (dispatch) => {
   dispatch(fetchingDataDispatcher(true));
   try {
-    const response = await axios.post("events/create", data);
+    let response;
+    if (edit) {
+      response = await axios.put("events/update", data);
+    } else {
+      response = await axios.post("events/create", data);
+    }
     closeModal();
     success(response.data.message);
     dispatch(setSuccessDispatcher(response.data.message));

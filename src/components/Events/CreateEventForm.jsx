@@ -20,9 +20,11 @@ import * as Actions from "../../store/AllActions";
 
 const CreateEventForm = (props) => {
   const dispatch = useDispatch();
-  const { events } = useSelector((state) => state);
-  const { closeModal } = props;
-  const [eventImage, setEventImage] = useState("");
+  const { selectedEvent } = useSelector((state) => state.events);
+  const { closeModal, edit = false } = props;
+  const [eventImage, setEventImage] = useState(
+    edit ? selectedEvent.eventImage : ""
+  );
 
   const submitHandler = (values, options) => {
     dispatch(
@@ -32,7 +34,8 @@ const CreateEventForm = (props) => {
           eventDate: moment(values.date).format("MM/d/yyyy"),
           eventImage: eventImage,
         }),
-        closeModal
+        closeModal,
+        edit
       )
     );
   };
@@ -41,13 +44,17 @@ const CreateEventForm = (props) => {
   };
   return (
     <Formik
-      initialValues={{
-        sport: "",
-        eventDate: "",
-        title: "",
-        description: "",
-        address: "",
-      }}
+      initialValues={
+        edit
+          ? selectedEvent
+          : {
+              sport: "",
+              eventDate: "",
+              title: "",
+              description: "",
+              address: "",
+            }
+      }
       onSubmit={(values, options) => submitHandler(values, options)}
     >
       {({ values, handleSubmit, setFieldValue }) => (
@@ -58,7 +65,7 @@ const CreateEventForm = (props) => {
                 id={"image"}
                 onInput={inputHandler}
                 errorText={"Please provide an image."}
-                imageUrl={""}
+                imageUrl={edit ? selectedEvent.eventImage : ""}
               />
             </div>
             <div>
@@ -73,6 +80,7 @@ const CreateEventForm = (props) => {
                   onChange={(e) => {
                     setFieldValue("sport", e.target.value);
                   }}
+                  value={values.sport}
                 >
                   <MenuItem value="">
                     <em>None</em>
