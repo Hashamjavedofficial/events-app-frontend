@@ -8,24 +8,17 @@ import imageLogo from "../../assets/images/extrovert-event.jpg";
 function EventLogistics(props) {
   const { date, address, image, imageAlt } = props;
 
-  const humanReadableDate = new Date(date).toLocaleDateString("en-US", {
-    day: "numeric",
-    month: "long",
-    year: "numeric",
-  });
-  const addressText = address.replace(", ", "\n");
-
   return (
     <section className={classes.logistics}>
       <div className={classes.image}>
-        <img src={imageLogo} alt={imageAlt} width={400} height={400} />
+        <img src={image} alt={imageAlt} width={400} height={400} />
       </div>
       <ul className={classes.list}>
         <LogisticsItem icon={DateIcon}>
-          <time>{humanReadableDate}</time>
+          <time>{date}</time>
         </LogisticsItem>
         <LogisticsItem icon={AddressIcon}>
-          <address>{addressText}</address>
+          <address>{address}</address>
         </LogisticsItem>
       </ul>
     </section>

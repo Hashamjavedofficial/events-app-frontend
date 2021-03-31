@@ -14,8 +14,8 @@ const Routes = (props) => {
   if (auth.token) {
     routes = (
       <Fragment>
-        <Route path="/event/:id" component={SelectedEvent} />
-        <Route path="/" component={Events} />
+        <Route exact path="/event/:id" component={SelectedEvent} />
+        <Route exact path="/" component={Events} />
         <Redirect to={"/"} />
       </Fragment>
     );

@@ -1,43 +1,31 @@
-import React, { useEffect, useState, Fragment } from "react";
-import { useParams } from "react-router-dom";
-import axios from "axios";
+import React, { Fragment } from "react";
+import { useSelector } from "react-redux";
 
 import EventSummary from "../components/Events/event-summary";
 import EventLogistics from "../components/Events/event-logistics";
 import EventContent from "../components/Events/event-content";
 import Spinner from "../components/Shared/Spinner";
+import avatar from "../assets/avatar.jpg";
 // import ErrorAlert from "../components/ui/error-alert";
 
 const SelectedEvent = (props) => {
-  const { id } = useParams();
-  const [event, setEvent] = useState({});
-  useEffect(() => {
-    axios
-      .get(
-        `https://vue-http-b6550-default-rtdb.firebaseio.com/events/${id}.json`
-      )
-      .then((res) => {
-        setEvent({
-          ...res.data,
-        });
-      });
-  }, []);
+  const { selectedEvent } = useSelector((state) => state.events);
 
   return (
     <Fragment>
-      {Object.keys(event).length < 1 ? (
+      {Object.keys(selectedEvent).length < 1 ? (
         <Spinner open />
       ) : (
         <Fragment>
-          <EventSummary title={event.title} />
+          <EventSummary title={selectedEvent.title} />
           <EventLogistics
-            date={event.date}
-            address={event.location}
-            image={event.image}
-            imageAlt={event.title}
+            date={selectedEvent.eventDate}
+            address={selectedEvent.address}
+            image={selectedEvent.eventImage ? selectedEvent.eventImage : avatar}
+            imageAlt={selectedEvent.title}
           />
           <EventContent>
-            <p>{event.description}</p>
+            <p>{selectedEvent.description}</p>
           </EventContent>
         </Fragment>
       )}

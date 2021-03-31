@@ -2,6 +2,8 @@ import axios from "../../utils/axios";
 import * as actionTypes from "../ActionTypes";
 import { success, error } from "../../utils/toast";
 
+import { bufferToImage } from "../../utils/helpers";
+
 const fetchingDataDispatcher = (loading) => ({
   type: actionTypes.FETCHING_DATA,
   payload: {
@@ -62,9 +64,30 @@ export const getAllEvents = () => async (dispatch) => {
   dispatch(fetchingDataDispatcher(true));
   try {
     const response = await axios.get("events/");
-    dispatch(getAllEventsDispatcher(response.data.data));
+    let events = [];
+    response.data.data.forEach((event) => {
+      if (event.eventImage) {
+        events.push({
+          ...event,
+          eventImage: `data:image/png;base64,${bufferToImage(
+            event.eventImage.data
+          )}`,
+        });
+      } else {
+        events.push({
+          ...event,
+        });
+      }
+    });
+    dispatch(getAllEventsDispatcher(events));
   } catch (e) {
     dispatch(setErrorDispatcher(e.message));
     dispatch(resetError());
   }
 };
+export const setSelectedEvent = (selectedEvent) => ({
+  type: actionTypes.SET_SELECTED_EVENT,
+  payload: {
+    selectedEvent,
+  },
+});

@@ -11,6 +11,7 @@ function EventList(props) {
       {items.map((event) => (
         <EventItem
           key={event._id}
+          event={event}
           id={event._id}
           title={event.title}
           location={event.address}

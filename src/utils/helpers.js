@@ -11,3 +11,7 @@ export const convertToFormData = (data) => {
   }
   return formData;
 };
+
+export const bufferToImage = (buffer) => {
+  return new Buffer.from(buffer).toString("base64");
+};

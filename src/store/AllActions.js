@@ -1,3 +1,7 @@
 export { authLogin, authLogout, authRedirectPath } from "./Auth/auth.action";
 
-export { createEvent, getAllEvents } from "./Events/Events.action";
+export {
+  createEvent,
+  getAllEvents,
+  setSelectedEvent,
+} from "./Events/Events.action";
