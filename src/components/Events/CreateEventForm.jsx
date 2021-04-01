@@ -27,11 +27,12 @@ const CreateEventForm = (props) => {
   );
 
   const submitHandler = (values, options) => {
+    debugger;
     dispatch(
       Actions.createEvent(
         convertToFormData({
           ...values,
-          eventDate: moment(values.date).format("MM/d/yyyy"),
+          // eventDate: moment(values.date).format("MM/d/yyyy"),
           eventImage: eventImage,
         }),
         closeModal,
@@ -46,7 +47,7 @@ const CreateEventForm = (props) => {
     <Formik
       initialValues={
         edit
-          ? selectedEvent
+          ? { ...selectedEvent }
           : {
               sport: "",
               eventDate: new Date(),
@@ -99,12 +100,13 @@ const CreateEventForm = (props) => {
             <div>
               <MuiPickersUtilsProvider utils={DateFnsUtils}>
                 <DatePicker
-                  id="event-date"
+                  id="eventDate"
                   label="Select Date"
                   inputVariant="outlined"
                   format="MM/DD/yyyy"
-                  onChange={(value) => {
-                    setFieldValue("eventDate", value);
+                  onChange={(value) => setFieldValue("eventDate", value)}
+                  KeyboardButtonProps={{
+                    "aria-label": "change date",
                   }}
                   value={values.eventDate}
                   emptyLabel="Select Date"
