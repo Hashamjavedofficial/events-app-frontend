@@ -7,6 +7,7 @@ import Spinner from "../components/Shared/Spinner";
 import * as Actions from "../store/AllActions";
 
 const Athlete = (props) => {
+  const {investigation = false} = props
   const dispatch = useDispatch();
   const { athletes } = useSelector((state) => state);
   useEffect(() => {
@@ -24,7 +25,7 @@ const Athlete = (props) => {
       <Spinner open={athletes.loading} />
       <EventsSearch onSearch={findEventsHandler} />
       {athletes.allAthletes.length > 0 ? (
-        <EventList items={athletes.allAthletes} />
+        <EventList items={athletes.allAthletes} investigation={investigation} />
       ) : (
         <div className="flex justify-center align-items-center">
           <div>

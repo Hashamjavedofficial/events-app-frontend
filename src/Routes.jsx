@@ -18,6 +18,7 @@ const Routes = (props) => {
       <Fragment>
         <Route exact path="/event/:id" component={SelectedEvent} />
         <Route exact path="/athletes" component={Athlete} />
+        <Route exact path="/investigation" render={()=><Athlete investigation={true} />} />
         <Route exact path="/athlete/:id" component={SelectedAthlete} />
         <Route exact path="/" component={Events} />
         <Redirect to={"/"} />

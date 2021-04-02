@@ -56,7 +56,7 @@ const Navbar = (props) => {
       case "/athletes":
         value !== 1 && setValue(1);
         break;
-      case "/revolution":
+      case "/investigation":
         value !== 2 && setValue(2);
         break;
       case "/aboutus":
@@ -91,6 +91,11 @@ const Navbar = (props) => {
           component={Link}
           to={"/athletes"}
           label="Athletes"
+        /> <Tab
+          className={classes.tab}
+          component={Link}
+          to={"/investigation"}
+          label="Investigation"
         />
       </Tabs>
       <Button
@@ -142,6 +147,20 @@ const Navbar = (props) => {
             }}
           >
             <ListItemText>Athletes</ListItemText>
+          </ListItem>
+            <ListItem
+            className={classes.drawerItem}
+            divider
+            button
+            selected={value === 1}
+            component={Link}
+            to={"/investigation"}
+            onClick={() => {
+              setOpenDrawer(false);
+              setValue(2);
+            }}
+          >
+            <ListItemText>Investigation</ListItemText>
           </ListItem>
           <ListItem
             className={classes.drawerItemEstimate}
