@@ -45,7 +45,7 @@ export const authLogin = (authData, signUp = false) => {
         dispatch(authSuccess(response.data.data, response.data.data.token));
       })
       .catch((err) => {
-        error(err.message);
+        error(err.response.data.message);
         dispatch(authFail(err.message));
       });
   };

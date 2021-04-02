@@ -52,7 +52,7 @@ export const createEvent = (data, closeModal, edit) => async (dispatch) => {
     dispatch(resetSuccess());
     dispatch(getAllEvents());
   } catch (e) {
-    error(e.message);
+    error(e.response.data.message);
     dispatch(setErrorDispatcher(e.message));
     dispatch(resetError());
   }
@@ -106,7 +106,7 @@ export const deleteEvent = (id) => async (dispatch) => {
     dispatch(setSuccessDispatcher(response.data.message));
     dispatch(resetSuccess());
   } catch (e) {
-    error(e.message);
+    error(e.response.data.message);
     dispatch(setErrorDispatcher(e.message));
     dispatch(resetError());
   }
