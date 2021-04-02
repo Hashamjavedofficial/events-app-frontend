@@ -16,9 +16,9 @@ const eventsReducers = (state = initialState, { type, payload }) => {
         case actionTypes.SET_SUCCESS:
             return { ...state, success: payload.success, loading: false };
         case actionTypes.FETCH_ALL_ATHLETES:
-            return { ...state, allEvents: payload.allAthletes, loading: false };
-        case actionTypes.SET_SELECTED_EVENT:
-            return { ...state, selectedEvent: payload.selectedAthlete };
+            return { ...state, allAthletes: payload.allAthletes, loading: false };
+        case actionTypes.SET_SELECTED_ATHLETE:
+            return { ...state, selectedAthlete: payload.selectedAthlete };
         default:
             return state;
     }

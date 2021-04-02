@@ -8,6 +8,7 @@ import Spinner from "../components/Shared/Spinner";
 import avatar from "../assets/avatar.jpg";
 // import ErrorAlert from "../components/ui/error-alert";
 
+
 const SelectedEvent = (props) => {
   const { selectedAthlete } = useSelector((state) => state.athletes);
 
@@ -19,7 +20,7 @@ const SelectedEvent = (props) => {
         <Fragment>
           <EventSummary title={selectedAthlete.name} />
           <EventLogistics
-            date={selectedAthlete.eventDate}
+            underInvestigation={selectedAthlete.underInvestigation}
             country={selectedAthlete.country}
             image={
               selectedAthlete.athleteImage
@@ -28,9 +29,9 @@ const SelectedEvent = (props) => {
             }
             sport={selectedAthlete.sport}
           />
-          <EventContent>
-            <p>{selectedAthlete.description}</p>
-          </EventContent>
+          {/*<EventContent>*/}
+          {/*  <p>{selectedAthlete.description}</p>*/}
+          {/*</EventContent>*/}
         </Fragment>
       )}
     </Fragment>

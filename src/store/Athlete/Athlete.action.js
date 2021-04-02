@@ -50,7 +50,7 @@ export const createAthlete = (data, closeModal, edit) => async (dispatch) => {
         success(response.data.message);
         dispatch(setSuccessDispatcher(response.data.message));
         dispatch(resetSuccess());
-        dispatch(getAllEvents());
+        dispatch(getAllAthletes());
     } catch (e) {
         error(e.response.data.message);
         dispatch(setErrorDispatcher(e.message));

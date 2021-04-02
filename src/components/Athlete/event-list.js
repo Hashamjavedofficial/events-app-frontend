@@ -11,12 +11,12 @@ function EventList(props) {
       {items.map((event) => (
         <EventItem
           key={event._id}
-          event={event}
+          athlete={event}
           id={event._id}
-          title={event.title}
-          location={event.address}
-          date={event.eventDate}
-          image={event.eventImage}
+          name={event.name}
+          sport={event.sport}
+          country={event.country}
+          image={event.athleteImage}
         />
       ))}
     </ul>

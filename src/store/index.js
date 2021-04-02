@@ -3,7 +3,7 @@ import thunk from "redux-thunk";
 
 import eventsReducer from "./Events/Events.reducer";
 import authReducer from "./Auth/auth.reducer";
-import athletesReducers from "./Events/Events.reducer";
+import athletesReducers from "./Athlete/Athlete.reducer";
 
 const composeEnhancers =
   process.env.NODE_ENV === "development"

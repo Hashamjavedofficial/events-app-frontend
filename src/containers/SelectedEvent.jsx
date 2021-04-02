@@ -6,6 +6,7 @@ import EventLogistics from "../components/Events/event-logistics";
 import EventContent from "../components/Events/event-content";
 import Spinner from "../components/Shared/Spinner";
 import avatar from "../assets/avatar.jpg";
+
 // import ErrorAlert from "../components/ui/error-alert";
 
 const SelectedEvent = (props) => {

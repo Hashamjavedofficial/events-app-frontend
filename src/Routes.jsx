@@ -7,6 +7,8 @@ import Login from "./components/Login-SignUp/Login";
 import Signup from "./components/Login-SignUp/Signup";
 import Events from "./containers/Events";
 import SelectedEvent from "./containers/SelectedEvent";
+import SelectedAthlete from "./containers/SelectedAthlete";
+import Athlete from "./containers/Athlete";
 
 const Routes = (props) => {
   const { auth } = useSelector((state) => state);
@@ -15,6 +17,8 @@ const Routes = (props) => {
     routes = (
       <Fragment>
         <Route exact path="/event/:id" component={SelectedEvent} />
+        <Route exact path="/athletes" component={Athlete} />
+        <Route exact path="/athlete/:id" component={SelectedAthlete} />
         <Route exact path="/" component={Events} />
         <Redirect to={"/"} />
       </Fragment>

@@ -7,14 +7,13 @@ import {
   Select,
   Button,
 } from "@material-ui/core";
-import { MuiPickersUtilsProvider, DatePicker } from "@material-ui/pickers";
-import DateFnsUtils from "@date-io/moment";
-import { useDispatch, useSelector } from "react-redux";
+
+import { useDispatch } from "react-redux";
 
 import * as Actions from "../../store/AllActions";
 import classes from "./events-search.module.css";
 import Model from "../Shared/Model";
-import CreateEventForm from "./CreateEventForm";
+import CreateEventForm from "./CreateAthlete";
 
 function EventsSearch(props) {
   const [open, setOpen] = useState(false);
@@ -22,44 +21,55 @@ function EventsSearch(props) {
     setOpen(!open);
   };
   const dispatch = useDispatch();
-  const submitHandler = (values, options) => {
-    dispatch(Actions.searchEvents(values));
+  const submitHandler = (values) => {
+    dispatch(Actions.searchAthlete(values));
   };
   return (
     <Fragment>
-      <Model open={open} setOpen={setOpen} title="Create an event">
+      <Model open={open} setOpen={setOpen} title="Create an athlete">
         <CreateEventForm closeModal={toggleModel} />
       </Model>
       <Formik
         initialValues={{
           sport: "",
-          date: new Date(),
+          country: '',
         }}
         onSubmit={(values, options) => submitHandler(values, options)}
       >
         {({ values, handleSubmit, setFieldValue }) => (
           <form className={classes.form} onSubmit={handleSubmit}>
             <div className="grid grid-cols-2 w-full gap-2">
-              <div>
-                <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                  <DatePicker
-                    id="event-date"
-                    label="Select Date"
-                    inputVariant="outlined"
-                    format="MM/DD/yyyy"
-                    onChange={(value) => setFieldValue("date", value)}
-                    KeyboardButtonProps={{
-                      "aria-label": "change date",
-                    }}
-                    value={values.date}
-                    emptyLabel="Select Date"
-                    animateYearScrolling={true}
-                    allowKeyboardControl={false}
-                    autoOk={true}
-                    className="w-full"
-                  />
-                </MuiPickersUtilsProvider>
-              </div>
+                <div>
+                    <FormControl variant="outlined" className="w-full">
+                        <InputLabel id="demo-simple-select-outlined-country">
+                            Country
+                        </InputLabel>
+                        <Select
+                            labelId="demo-simple-select-outlined-country"
+                            id="demo-simple-select-country"
+                            label="Country"
+                            onChange={(e) => {
+                                setFieldValue("country", e.target.value);
+                            }}
+                        >
+                            <MenuItem value="">
+                                <em>None</em>
+                            </MenuItem>
+                            <MenuItem value="usa">USA</MenuItem>
+                            <MenuItem value="france">France</MenuItem>
+                            <MenuItem value="canada">Canada</MenuItem>
+                            <MenuItem value="spain">Spain</MenuItem>
+                            <MenuItem value="russia">Russia</MenuItem>
+                            <MenuItem value="china">China</MenuItem>
+                            <MenuItem value="brazil">Brazil</MenuItem>
+                            <MenuItem value="southkorea">South Korea</MenuItem>
+                            <MenuItem value="germany">Germany</MenuItem>
+                            <MenuItem value="england">England</MenuItem>
+                            <MenuItem value="scotland">Scotland</MenuItem>
+                            <MenuItem value="ireland">Ireland</MenuItem>
+                        </Select>
+                    </FormControl>
+                </div>
               <div>
                 <FormControl variant="outlined" className="w-full">
                   <InputLabel id="demo-simple-select-outlined-label">
@@ -89,10 +99,10 @@ function EventsSearch(props) {
               </div>
             </div>
             <Button color={"secondary"} variant="contained" type="submit">
-              Find Events
+              Find Athlete
             </Button>
             <Button color="primary" variant="contained" onClick={toggleModel}>
-              Create Event
+              Create Athlete
             </Button>
           </form>
         )}

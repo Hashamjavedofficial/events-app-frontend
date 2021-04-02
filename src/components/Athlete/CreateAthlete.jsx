@@ -2,17 +2,14 @@ import React, { useState } from "react";
 import { Formik, Field } from "formik";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  Grid,
-  TextField,
-  Button,
-  FormControl,
-  InputLabel,
-  Select,
-  MenuItem,
+    TextField,
+    Button,
+    FormControl,
+    InputLabel,
+    Select,
+    MenuItem, FormControlLabel, Switch,
 } from "@material-ui/core";
-import { DatePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
-import DateFnsUtils from "@date-io/moment";
-import moment from "moment";
+
 
 import ImageUpload from "../Shared/image-upload";
 import { convertToFormData } from "../../utils/helpers";
@@ -20,19 +17,19 @@ import * as Actions from "../../store/AllActions";
 
 const CreateAthlete = (props) => {
   const dispatch = useDispatch();
-  const { selectedEvent } = useSelector((state) => state.events);
+  const { selectedAthlete } = useSelector((state) => state.athletes);
   const { closeModal, edit = false } = props;
   const [eventImage, setEventImage] = useState(
-    edit ? selectedEvent.eventImage : ""
+    edit ? selectedAthlete.eventImage : ""
   );
 
   const submitHandler = (values, options) => {
     dispatch(
-      Actions.createEvent(
+      Actions.createAthlete(
         convertToFormData({
           ...values,
           // eventDate: moment(values.date).format("MM/d/yyyy"),
-          eventImage: eventImage,
+          athleteImage: eventImage,
         }),
         closeModal,
         edit
@@ -46,13 +43,12 @@ const CreateAthlete = (props) => {
     <Formik
       initialValues={
         edit
-          ? { ...selectedEvent }
+          ? { ...selectedAthlete }
           : {
               sport: "",
-              eventDate: new Date(),
-              title: "",
-              description: "",
-              address: "",
+              name: '',
+              country: "",
+              underInvestigation: false,
             }
       }
       onSubmit={(values, options) => submitHandler(values, options)}
@@ -65,9 +61,20 @@ const CreateAthlete = (props) => {
                 id={"image"}
                 onInput={inputHandler}
                 errorText={"Please provide an image."}
-                imageUrl={edit ? selectedEvent.eventImage : ""}
+                imageUrl={edit ? selectedAthlete.athleteImage : ""}
               />
             </div>
+              <div>
+                  <Field
+                      as={TextField}
+                      label="Name"
+                      name="name"
+                      type="text"
+                      required
+                      variant="outlined"
+                      className="w-full"
+                  />
+              </div>
             <div>
               <FormControl variant="outlined" className="w-full">
                 <InputLabel id="demo-simple-select-outlined-label">
@@ -96,58 +103,50 @@ const CreateAthlete = (props) => {
                 </Select>
               </FormControl>
             </div>
+
+              <div>
+                  <FormControl variant="outlined" className="w-full">
+                      <InputLabel id="demo-simple-select-outlined-country">
+                          Country
+                      </InputLabel>
+                      <Select
+                          labelId="demo-simple-select-outlined-country"
+                          id="demo-simple-select-country"
+                          label="Country"
+                          onChange={(e) => {
+                              setFieldValue("country", e.target.value);
+                          }}
+                          value={values.country}
+                      >
+                          <MenuItem value="">
+                              <em>None</em>
+                          </MenuItem>
+                          <MenuItem value="usa">USA</MenuItem>
+                          <MenuItem value="france">France</MenuItem>
+                          <MenuItem value="canada">Canada</MenuItem>
+                          <MenuItem value="spain">Spain</MenuItem>
+                          <MenuItem value="russia">Russia</MenuItem>
+                          <MenuItem value="china">China</MenuItem>
+                          <MenuItem value="brazil">Brazil</MenuItem>
+                          <MenuItem value="southkorea">South Korea</MenuItem>
+                          <MenuItem value="germany">Germany</MenuItem>
+                          <MenuItem value="england">England</MenuItem>
+                          <MenuItem value="scotland">Scotland</MenuItem>
+                          <MenuItem value="ireland">Ireland</MenuItem>
+                      </Select>
+                  </FormControl>
+              </div>
             <div>
-              <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                <DatePicker
-                  id="eventDate"
-                  label="Select Date"
-                  inputVariant="outlined"
-                  format="MM/DD/yyyy"
-                  onChange={(value) => setFieldValue("eventDate", value)}
-                  KeyboardButtonProps={{
-                    "aria-label": "change date",
-                  }}
-                  value={values.eventDate}
-                  emptyLabel="Select Date"
-                  animateYearScrolling={true}
-                  allowKeyboardControl={false}
-                  autoOk={true}
-                  className="w-full"
+                <FormControlLabel
+                    control={
+                        <Switch
+                            checked={values.underInvestigation}
+                            onChange={e=>setFieldValue('underInvestigation',e.target.checked)}
+                            color="primary"
+                        />
+                    }
+                    label="Under Investigation"
                 />
-              </MuiPickersUtilsProvider>
-            </div>
-            <div>
-              <Field
-                as={TextField}
-                label="Address"
-                name="address"
-                type="text"
-                required
-                variant="outlined"
-                className="w-full"
-              />
-            </div>
-            <div>
-              <Field
-                as={TextField}
-                label="Title"
-                name="title"
-                type="text"
-                required
-                variant="outlined"
-                className="w-full"
-              />
-            </div>
-            <div>
-              <Field
-                as={TextField}
-                label="Description"
-                name="description"
-                type="text"
-                required
-                variant="outlined"
-                className="w-full"
-              />
             </div>
             <div className="flex justify-end gap-4">
               <Button

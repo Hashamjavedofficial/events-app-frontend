@@ -5,44 +5,37 @@ import { useDispatch, useSelector } from "react-redux";
 import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
 import ArrowForwardIcon from "@material-ui/icons/ArrowForward";
-
-import DateIcon from "../icons/date-icon";
-import AddressIcon from "../icons/address-icon";
+import FlagIcon from '@material-ui/icons/Flag';
+import SportsBaseballIcon from '@material-ui/icons/SportsBaseball';
 import classes from "./event-item.module.css";
-import { bufferToImage } from "../../utils/helpers";
+
 import * as Actions from "../../store/AllActions";
 
 import imageLogo from "../../assets/images/coding-event.jpg";
 import avatar from "../../assets/avatar.jpg";
 import Model from "../Shared/Model";
-import CreateEventForm from "./CreateEventForm";
+import CreateEventForm from "./CreateAthlete";
 
 function EventItem(props) {
-  const { title, image, date, location, id, event } = props;
+  const {  image, id, athlete,name,sport,country } = props;
   const history = useHistory();
-  const { events } = useSelector((state) => state);
+  const { athletes } = useSelector((state) => state);
   const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
   const toggleModel = () => {
     setOpen(!open);
   };
-  const humanReadableDate = new Date(date).toLocaleDateString("en-US", {
-    day: "numeric",
-    month: "long",
-    year: "numeric",
-  });
-  const formattedAddress = location.replace(", ", "\n");
 
   const exploreEventHandler = () => {
-    dispatch(Actions.setSelectedEvent(event));
-    history.push("/event/" + id);
+    dispatch(Actions.setSelectedAthlete(athlete));
+    history.push("/athlete/" + id);
   };
   const handleEdit = () => {
-    dispatch(Actions.setSelectedEvent(event));
+    dispatch(Actions.setSelectedAthlete(athlete));
     toggleModel();
   };
   const handleDelete = () => {
-    dispatch(Actions.deleteEvent(id));
+    dispatch(Actions.deleteAthlete(id));
   };
 
   return (
@@ -50,18 +43,21 @@ function EventItem(props) {
       <Model open={open} setOpen={setOpen} title="Create an event">
         <CreateEventForm closeModal={toggleModel} edit={true} />
       </Model>
-      <img src={image ? image : avatar} alt={title} width={250} height={160} />
-      <div className={classes.content}>
+      <img src={image ? image : avatar} alt={'image'} width={250} height={160} />
+      <div className={classes.content}  >
         <div className={classes.summary}>
-          <h2>{title}</h2>
+          <h2>{name}</h2>
           <div className={classes.date}>
-            <DateIcon />
-            <time>{humanReadableDate}</time>
+            <SportsBaseballIcon />
+            <time>{sport}</time>
           </div>
           <div className={classes.address}>
-            <AddressIcon />
-            <address>{formattedAddress}</address>
+            <FlagIcon />
+            <address>{country}</address>
           </div>
+          {athlete.underInvestigation &&  <div className={classes.address} style={{color:"red"}}>
+            <h3 style={{fontWeight:"bold"}}>Under Investigation</h3>
+          </div>}
         </div>
         <div className={classes.actions}>
           <IconButton onClick={handleDelete} color={"primary"}>
@@ -77,7 +73,7 @@ function EventItem(props) {
             variant="contained"
             onClick={exploreEventHandler}
           >
-            Explore Event <ArrowForwardIcon></ArrowForwardIcon>
+            Explore Athlete <ArrowForwardIcon></ArrowForwardIcon>
           </Button>
         </div>
       </div>
