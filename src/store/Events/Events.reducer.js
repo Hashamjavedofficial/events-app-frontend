@@ -7,7 +7,7 @@ const initialState = {
   success: null,
 };
 
-const eventsReducers = (state = initialState, { type, payload }) => {
+const athletesReducers = (state = initialState, { type, payload }) => {
   switch (type) {
     case actionTypes.FETCHING_DATA:
       return { ...state, loading: payload.loading };
@@ -23,4 +23,4 @@ const eventsReducers = (state = initialState, { type, payload }) => {
       return state;
   }
 };
-export default eventsReducers;
+export default athletesReducers;

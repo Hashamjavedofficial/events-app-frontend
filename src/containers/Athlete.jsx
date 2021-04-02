@@ -1,4 +1,4 @@
-import React, { useEffect, useState, Fragment } from "react";
+import React, { useEffect, Fragment } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import EventList from "../components/Athlete/event-list";
@@ -8,9 +8,9 @@ import * as Actions from "../store/AllActions";
 
 const Athlete = (props) => {
   const dispatch = useDispatch();
-  const { events } = useSelector((state) => state);
+  const { athletes } = useSelector((state) => state);
   useEffect(() => {
-    dispatch(Actions.getAllEvents());
+    dispatch(Actions.getAllAthletes());
   }, []);
 
   function findEventsHandler(year, month) {
@@ -21,10 +21,10 @@ const Athlete = (props) => {
 
   return (
     <Fragment>
-      <Spinner open={events.loading} />
+      <Spinner open={athletes.loading} />
       <EventsSearch onSearch={findEventsHandler} />
-      {events.allEvents.length > 0 ? (
-        <EventList items={events.allEvents} />
+      {athletes.allAthletes.length > 0 ? (
+        <EventList items={athletes.allAthletes} />
       ) : (
         <div className="flex justify-center align-items-center">
           <div>

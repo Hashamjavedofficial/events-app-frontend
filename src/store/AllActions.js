@@ -7,3 +7,7 @@ export {
   deleteEvent,
   searchEvents,
 } from "./Events/Events.action";
+
+export {
+  createAthlete,getAllAthletes,searchAthlete,deleteAthlete,setSelectedAthlete
+} from './Athlete/Athlete.action'

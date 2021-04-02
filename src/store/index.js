@@ -3,6 +3,7 @@ import thunk from "redux-thunk";
 
 import eventsReducer from "./Events/Events.reducer";
 import authReducer from "./Auth/auth.reducer";
+import athletesReducers from "./Events/Events.reducer";
 
 const composeEnhancers =
   process.env.NODE_ENV === "development"
@@ -12,6 +13,7 @@ const composeEnhancers =
 const reducers = combineReducers({
   auth: authReducer,
   events: eventsReducer,
+  athletes:athletesReducers
 });
 
 export const store = createStore(
