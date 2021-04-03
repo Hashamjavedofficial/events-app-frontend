@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, { Fragment,useEffect } from "react";
 import { Route, Switch, Redirect } from "react-router-dom";
 import { useSelector } from "react-redux";
 
@@ -10,7 +10,13 @@ import SelectedEvent from "./containers/SelectedEvent";
 import SelectedAthlete from "./containers/SelectedAthlete";
 import Athlete from "./containers/Athlete";
 
+import {useDispatch} from "react-redux";
+import * as Actions from './store/AllActions'
 const Routes = (props) => {
+    const dispatch = useDispatch()
+    useEffect(()=>{
+        dispatch(Actions.getAllAthletes())
+    },[])
   const { auth } = useSelector((state) => state);
   let routes;
   if (auth.token) {

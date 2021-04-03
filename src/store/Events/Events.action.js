@@ -136,6 +136,26 @@ export const addAthleteToEvent = (data)=>async dispatch=>{
     let response = await axios.patch(`events/addathlete`,data);
     success(response.data.message);
     dispatch(getAllEvents());
+    let athletes = []
+    response.data.data.athletes.forEach(athlete=>{
+      if(athlete.athleteImage){
+        athletes.push({
+          ...athlete,
+          athleteImage: `data:image/png;base64,${bufferToImage(
+              athlete.athleteImage.data
+          )}`,
+        });
+      }else{
+        athlete.push({
+          ...athlete,
+        });
+      }
+    })
+
+    dispatch(setSelectedEvent({
+      ...response.data.data,
+      athletes
+    }))
     dispatch(setSuccessDispatcher(response.data.message));
     dispatch(resetSuccess());
   } catch (e) {
@@ -170,16 +190,33 @@ export const searchEvents = (data) => async (dispatch) => {
     const response = await axios.post("events/search", data);
     let events = [];
     response.data.data.forEach((event) => {
+      let athletes = []
+      event.athletes.forEach(athlete=>{
+        if(athlete.athleteImage){
+          athletes.push({
+            ...athlete,
+            athleteImage: `data:image/png;base64,${bufferToImage(
+                athlete.athleteImage.data
+            )}`,
+          });
+        }else{
+          athlete.push({
+            ...athlete,
+          });
+        }
+      })
       if (event.eventImage) {
         events.push({
           ...event,
           eventImage: `data:image/png;base64,${bufferToImage(
-            event.eventImage.data
+              event.eventImage.data
           )}`,
+          athletes
         });
       } else {
         events.push({
           ...event,
+          athletes
         });
       }
     });

@@ -12,7 +12,10 @@ const Events = (props) => {
   const { events } = useSelector((state) => state);
   useEffect(() => {
     dispatch(Actions.getAllEvents());
+    dispatch(Actions.getAllAthletes())
   }, []);
+
+
 
   function findEventsHandler(year, month) {
     const fullPath = `/events/${year}/${month}`;
