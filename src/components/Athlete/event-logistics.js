@@ -7,6 +7,7 @@ import SportsBaseballIcon from '@material-ui/icons/SportsBaseball';
 import SearchIcon from '@material-ui/icons/Search';
 
 import imageLogo from "../../assets/images/extrovert-event.jpg";
+import React, {Fragment} from "react";
 
 function EventLogistics(props) {
   const { underInvestigation, country, image, sport } = props;

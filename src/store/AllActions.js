@@ -5,7 +5,7 @@ export {
   getAllEvents,
   setSelectedEvent,
   deleteEvent,
-  searchEvents,
+  searchEvents,addAthleteToEvent,addResult
 } from "./Events/Events.action";
 
 export {

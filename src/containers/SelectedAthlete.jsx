@@ -3,10 +3,8 @@ import { useSelector } from "react-redux";
 
 import EventSummary from "../components/Athlete/event-summary";
 import EventLogistics from "../components/Athlete/event-logistics";
-import EventContent from "../components/Athlete/event-content";
 import Spinner from "../components/Shared/Spinner";
 import avatar from "../assets/avatar.jpg";
-// import ErrorAlert from "../components/ui/error-alert";
 
 
 const SelectedEvent = (props) => {
@@ -29,9 +27,8 @@ const SelectedEvent = (props) => {
             }
             sport={selectedAthlete.sport}
           />
-          {/*<EventContent>*/}
-          {/*  <p>{selectedAthlete.description}</p>*/}
-          {/*</EventContent>*/}
+
+
         </Fragment>
       )}
     </Fragment>

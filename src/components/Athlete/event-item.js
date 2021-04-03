@@ -17,7 +17,7 @@ import Model from "../Shared/Model";
 import CreateEventForm from "./CreateAthlete";
 
 function EventItem(props) {
-  const {  image, id, athlete,name,sport,country } = props;
+  const {  image, id, athlete,name,sport,country,disbaleButtons } = props;
   const history = useHistory();
   const { athletes } = useSelector((state) => state);
   const dispatch = useDispatch();
@@ -59,7 +59,7 @@ function EventItem(props) {
             <h3 style={{fontWeight:"bold"}}>Under Investigation</h3>
           </div>}
         </div>
-        <div className={classes.actions}>
+        {!disbaleButtons && <div className={classes.actions}>
           <IconButton onClick={handleDelete} color={"primary"}>
             <DeleteIcon></DeleteIcon>
           </IconButton>
@@ -68,14 +68,15 @@ function EventItem(props) {
           </IconButton>
 
           <Button
-            className="mt-1"
-            color="secondary"
-            variant="contained"
-            onClick={exploreEventHandler}
+              className="mt-1"
+              color="secondary"
+              variant="contained"
+              onClick={exploreEventHandler}
           >
             Explore Athlete <ArrowForwardIcon></ArrowForwardIcon>
           </Button>
-        </div>
+        </div>}
+
       </div>
     </li>
   );
