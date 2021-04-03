@@ -9,7 +9,7 @@ import { useSelector, useDispatch } from "react-redux";
 import * as Actions from "../../store/AllActions";
 import { useLoginStyle } from "./Login.Styles";
 import Spinner from "../Shared/Spinner";
-import Logo from "../../logo.svg";
+import Logo from "../../logo.jpg";
 import loginImage from "../../assets/sport.jpg";
 
 const Signup = (props) => {

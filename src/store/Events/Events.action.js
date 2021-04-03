@@ -1,7 +1,6 @@
 import axios from "../../utils/axios";
 import * as actionTypes from "../ActionTypes";
 import { success, error } from "../../utils/toast";
-import store from '../index'
 
 import { bufferToImage } from "../../utils/helpers";
 

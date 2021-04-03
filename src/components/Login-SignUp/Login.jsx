@@ -8,7 +8,7 @@ import { Formik, Field } from "formik";
 
 import { useLoginStyle } from "./Login.Styles";
 import Spinner from "../Shared/Spinner";
-import Logo from "../../logo.svg";
+import Logo from "../../logo.jpg";
 import loginImage from "../../assets/sport.jpg";
 import * as Actions from "../../store/AllActions";
 

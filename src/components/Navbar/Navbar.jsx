@@ -20,7 +20,7 @@ import * as Actions from "../../store/AllActions";
 
 import { navbarStyles } from "./Navbar.Styles";
 
-import logo from "../../logo.svg";
+import logo from "../../logo.jpg";
 
 function ElevationScroll(props) {
   const { children } = props;
@@ -203,6 +203,7 @@ const Navbar = (props) => {
               <img
                 src={logo}
                 height={30}
+                style={{borderRadius:"30%"}}
                 alt="Company logo"
                 className={classes.logo}
               />
