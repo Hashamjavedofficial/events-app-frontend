@@ -134,10 +134,10 @@ export const addAthleteToEvent = (data) => async (dispatch) => {
   try {
     let response = await axios.patch(`events/addathlete`, data);
     success(response.data.message);
-    dispatch(getAllEvents());
     let athletes = [];
     response.data.data.athletes.forEach((athlete) => {
-      if (athlete.athleteImage) {
+      console.log(athlete);
+      if (athlete.athleteImage !== null) {
         athletes.push({
           ...athlete,
           athleteImage: `data:image/png;base64,${bufferToImage(
@@ -151,12 +151,16 @@ export const addAthleteToEvent = (data) => async (dispatch) => {
       }
     });
 
+    const image =
+      response.data.data.eventImage !== null
+        ? `data:image/png;base64,${bufferToImage(
+            response.data.data.eventImage.data
+          )}`
+        : null;
     dispatch(
       setSelectedEvent({
         ...response.data.data,
-        eventImage: `data:image/png;base64,${bufferToImage(
-          response.data.data.eventImage
-        )}`,
+        eventImage: image,
         athletes,
       })
     );
