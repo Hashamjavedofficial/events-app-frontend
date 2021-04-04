@@ -71,33 +71,33 @@ export const getAllEvents = () => async (dispatch) => {
     const response = await axios.get("events/");
     let events = [];
     response.data.data.forEach((event) => {
-      let athletes = []
-      event.athletes.forEach(athlete=>{
-        if(athlete.athleteImage){
+      let athletes = [];
+      event.athletes.forEach((athlete) => {
+        if (athlete.athleteImage) {
           athletes.push({
             ...athlete,
             athleteImage: `data:image/png;base64,${bufferToImage(
-                athlete.athleteImage.data
+              athlete.athleteImage.data
             )}`,
           });
-        }else{
-          athlete.push({
+        } else {
+          athletes.push({
             ...athlete,
           });
         }
-      })
+      });
       if (event.eventImage) {
         events.push({
           ...event,
           eventImage: `data:image/png;base64,${bufferToImage(
             event.eventImage.data
           )}`,
-          athletes
+          athletes,
         });
       } else {
         events.push({
           ...event,
-          athletes
+          athletes,
         });
       }
     });
@@ -129,51 +129,58 @@ export const deleteEvent = (id) => async (dispatch) => {
   }
 };
 
-export const addAthleteToEvent = (data)=>async dispatch=>{
+export const addAthleteToEvent = (data) => async (dispatch) => {
   dispatch(fetchingDataDispatcher(true));
   try {
-    let response = await axios.patch(`events/addathlete`,data);
+    let response = await axios.patch(`events/addathlete`, data);
     success(response.data.message);
     dispatch(getAllEvents());
-    let athletes = []
-    response.data.data.athletes.forEach(athlete=>{
-      if(athlete.athleteImage){
+    let athletes = [];
+    response.data.data.athletes.forEach((athlete) => {
+      if (athlete.athleteImage) {
         athletes.push({
           ...athlete,
           athleteImage: `data:image/png;base64,${bufferToImage(
-              athlete.athleteImage.data
+            athlete.athleteImage.data
           )}`,
         });
-      }else{
-        athlete.push({
+      } else {
+        athletes.push({
           ...athlete,
         });
       }
-    })
+    });
 
-    dispatch(setSelectedEvent({
-      ...response.data.data,
-      athletes
-    }))
+    dispatch(
+      setSelectedEvent({
+        ...response.data.data,
+        eventImage: `data:image/png;base64,${bufferToImage(
+          response.data.data.eventImage
+        )}`,
+        athletes,
+      })
+    );
     dispatch(setSuccessDispatcher(response.data.message));
     dispatch(resetSuccess());
   } catch (e) {
-    error(e.response.data.message);
+    error(e.message);
     dispatch(setErrorDispatcher(e.message));
     dispatch(resetError());
   }
-}
-export const addResult = (data)=>async (dispatch,getState)=>{
+};
+export const addResult = (data) => async (dispatch, getState) => {
   dispatch(fetchingDataDispatcher(true));
   try {
-    let response = await axios.patch(`events/add-result`,data);
+    let response = await axios.patch(`events/add-result`, data);
     success(response.data.message);
     dispatch(getAllEvents());
-    const {events} = getState();
-    dispatch(setSelectedEvent({
-      ...events.selectedEvent,
-      result:response.data.data.result
-    }))
+    const { events } = getState();
+    dispatch(
+      setSelectedEvent({
+        ...events.selectedEvent,
+        result: response.data.data.result,
+      })
+    );
     dispatch(setSuccessDispatcher(response.data.message));
     dispatch(resetSuccess());
   } catch (e) {
@@ -181,7 +188,7 @@ export const addResult = (data)=>async (dispatch,getState)=>{
     dispatch(setErrorDispatcher(e.message));
     dispatch(resetError());
   }
-}
+};
 
 export const searchEvents = (data) => async (dispatch) => {
   dispatch(fetchingDataDispatcher(true));
@@ -189,33 +196,33 @@ export const searchEvents = (data) => async (dispatch) => {
     const response = await axios.post("events/search", data);
     let events = [];
     response.data.data.forEach((event) => {
-      let athletes = []
-      event.athletes.forEach(athlete=>{
-        if(athlete.athleteImage){
+      let athletes = [];
+      event.athletes.forEach((athlete) => {
+        if (athlete.athleteImage) {
           athletes.push({
             ...athlete,
             athleteImage: `data:image/png;base64,${bufferToImage(
-                athlete.athleteImage.data
+              athlete.athleteImage.data
             )}`,
           });
-        }else{
+        } else {
           athlete.push({
             ...athlete,
           });
         }
-      })
+      });
       if (event.eventImage) {
         events.push({
           ...event,
           eventImage: `data:image/png;base64,${bufferToImage(
-              event.eventImage.data
+            event.eventImage.data
           )}`,
-          athletes
+          athletes,
         });
       } else {
         events.push({
           ...event,
-          athletes
+          athletes,
         });
       }
     });
